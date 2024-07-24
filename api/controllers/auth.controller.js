@@ -1,7 +1,7 @@
 import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 import { generateTokenAndSetCookie } from "../utils/generateToken.js";
-import { throw400 } from "../utils/throwErrors.js";
+import { throw400, resGeneralError } from "../utils/throwErrors.js";
 
 export async function signup(req, res) {
   try {
@@ -57,11 +57,7 @@ export async function signup(req, res) {
       throw400("Invalid User data");
     }
   } catch (error) {
-    console.log("Signup error: " + error.message);
-    res.status(error.statusCode || 500).json({
-      success: false,
-      message: error.message || "Internal server error",
-    });
+    resGeneralError(error, res);
   }
 }
 
@@ -70,5 +66,13 @@ export async function login(req, res) {
 }
 
 export async function logout(rea, res) {
-  res.send("logout");
+  try {
+    res.clearCookie("jwt-netflix-clone");
+    res.status(200).json({
+      success: true,
+      message: "Logged out successfully",
+    });
+  } catch (error) {
+    resGeneralError(error, res);
+  }
 }

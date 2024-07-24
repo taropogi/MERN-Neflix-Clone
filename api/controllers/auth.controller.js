@@ -55,9 +55,14 @@ export async function signup(req, res) {
 
     await newUser.save();
 
-    res.status(200).json({
+    // 201 means resource created
+    res.status(201).json({
       success: true,
       message: "User successfully created",
+      user: {
+        ...newUser._doc,
+        password: "", // remove password from the response
+      },
     });
   } catch (error) {
     console.log("Signup error: " + error.message);

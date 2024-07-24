@@ -1,49 +1,32 @@
 import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
+import { generateTokenAndSetCookie } from "../utils/generateToken.js";
+import { throw400 } from "../utils/throwErrors.js";
+
 export async function signup(req, res) {
   try {
     const { email, password, username } = req.body; // need parser: the app.use(express.json())  in the server.js
 
-    if (!email || !password || !username)
-      return res.status(400).json({
-        success: false,
-        message: "All fields are required",
-      });
+    if (!email || !password || !username) throw400("All fields are required");
 
     // make sure emails are valid
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    if (!emailRegex.test(email))
-      return res.status(400).json({
-        success: false,
-        message: "Invalid Email",
-      });
+    if (!emailRegex.test(email)) throw400("Invalid Email");
 
-    if (password.length < 6)
-      return res.status(400).json({
-        success: false,
-        message: "Password must be at least 6 characters",
-      });
+    if (password.length < 6) throw400("Password must be at least 6 characters");
 
     const existingUserByEmail = await User.findOne({
       email,
     });
 
-    if (existingUserByEmail)
-      return res.status(400).json({
-        success: false,
-        message: "Email already exists",
-      });
+    if (existingUserByEmail) throw400("Email already exists");
 
     const existingUserByUsername = await User.findOne({
       username,
     });
 
-    if (existingUserByUsername)
-      return res.status(400).json({
-        success: false,
-        message: "Username already exists",
-      });
+    if (existingUserByUsername) throw400("Username already exists");
 
     const salt = await bcryptjs.genSalt(10); // salt rounds. ensure that same password has difference hashed values
     const hashedPW = await bcryptjs.hash(password, salt);
@@ -57,20 +40,25 @@ export async function signup(req, res) {
       image,
     });
 
-    await newUser.save();
+    if (newUser) {
+      generateTokenAndSetCookie(newUser._id, res);
+      await newUser.save();
 
-    // 201 means resource created
-    res.status(201).json({
-      success: true,
-      message: "User successfully created",
-      user: {
-        ...newUser._doc,
-        password: "", // remove password from the response
-      },
-    });
+      // 201 means resource created
+      res.status(201).json({
+        success: true,
+        message: "User successfully created",
+        user: {
+          ...newUser._doc,
+          password: "", // remove password from the response
+        },
+      });
+    } else {
+      throw400("Invalid User data");
+    }
   } catch (error) {
     console.log("Signup error: " + error.message);
-    res.status(500).json({
+    res.status(error.statusCode || 500).json({
       success: false,
       message: error.message || "Internal server error",
     });

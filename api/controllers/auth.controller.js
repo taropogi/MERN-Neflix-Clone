@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import bcryptjs from "bcryptjs";
 export async function signup(req, res) {
   try {
     const { email, password, username } = req.body; // need parser: the app.use(express.json())  in the server.js
@@ -44,11 +45,14 @@ export async function signup(req, res) {
         message: "Username already exists",
       });
 
+    const salt = await bcryptjs.genSalt(10); // salt rounds. ensure that same password has difference hashed values
+    const hashedPW = await bcryptjs.hash(password, salt);
+
     const PROFILE_PICS = ["/avatar1.png", "/avatar2.png", "/avatar3.png"];
     const image = PROFILE_PICS[Math.floor(Math.random() * PROFILE_PICS.length)];
     const newUser = new User({
       email,
-      password,
+      password: hashedPW,
       username,
       image,
     });

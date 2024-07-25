@@ -5,6 +5,13 @@ export function throw400(message) {
   throw error;
 }
 
+export function throw500(message) {
+  // 500 means server error
+  const error = new Error(message);
+  error.statusCode = 500;
+  throw error;
+}
+
 export function throw404(message) {
   //
   const error = new Error(message);
@@ -14,7 +21,7 @@ export function throw404(message) {
 
 //response general error
 export function resGeneralError(error, res) {
-  console.log("Auth Error: " + error.message);
+  console.log("Error: " + error.message);
   res.status(error.statusCode || 500).json({
     success: false,
     message: error.message || "Internal server error",

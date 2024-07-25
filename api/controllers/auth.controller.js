@@ -1,7 +1,7 @@
 import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 import { generateTokenAndSetCookie } from "../utils/generateToken.js";
-import { throw400, resGeneralError } from "../utils/throwErrors.js";
+import { throw400, resGeneralError, throw404 } from "../utils/throwErrors.js";
 
 export async function signup(req, res) {
   try {
@@ -62,7 +62,28 @@ export async function signup(req, res) {
 }
 
 export async function login(req, res) {
-  res.send("login");
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) throw400("All fields are required");
+    const user = await User.findOne({ email });
+    if (!user) throw404("Invalid credentials.");
+
+    const isPasswordCorrect = await bcryptjs.compare(password, user.password);
+
+    if (!isPasswordCorrect) throw400("Invalid credentials.");
+
+    generateTokenAndSetCookie(user._id, res);
+
+    res.status(200).json({
+      success: true,
+      user: {
+        ...user._doc,
+        password: "",
+      },
+    });
+  } catch (error) {
+    resGeneralError(error, res);
+  }
 }
 
 export async function logout(rea, res) {

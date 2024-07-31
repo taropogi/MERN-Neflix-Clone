@@ -22,7 +22,7 @@ export function throw404(message) {
 //response general error
 export function resGeneralError(error, res) {
   console.log("Error: " + error.message);
-  res.status(error.statusCode || 500).json({
+  res.status(error?.statusCode || 500).json({
     success: false,
     message: error.message || "Internal server error",
   });

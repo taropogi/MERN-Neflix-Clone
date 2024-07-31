@@ -64,3 +64,20 @@ export async function getTrendingMovie(req, res) {
     resGeneralError(error, res);
   }
 }
+
+export async function getMoviesByCategory(req, res) {
+  //popular,top_rated,upcoming
+  const { category } = req.params;
+
+  try {
+    const data = await fetchFromTMDB(
+      `https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`
+    );
+    res.json({
+      success: true,
+      movies: data.results,
+    });
+  } catch (error) {
+    resGeneralError(error, res);
+  }
+}

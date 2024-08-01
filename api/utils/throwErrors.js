@@ -5,6 +5,13 @@ export function throw400(message) {
   throw error;
 }
 
+export function throw401(message) {
+  // 400 means bad request
+  const error = new Error(message);
+  error.statusCode = 401;
+  throw error;
+}
+
 export function throw500(message) {
   // 500 means server error
   const error = new Error(message);

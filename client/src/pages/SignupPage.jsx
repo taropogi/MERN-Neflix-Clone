@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Header from "../UI/Header";
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
@@ -10,11 +11,7 @@ export default function SignupPage() {
   }
   return (
     <div className="h-screen w-full hero-bg ">
-      <header className="max-w-6xl mx-auto flex item-center justify-between p-4  ">
-        <Link to={"/"}>
-          <img src="/netflix-logo.png" alt="logo" className="w-52" />
-        </Link>
-      </header>
+      <Header />
       <div className="flex justify-center items-center mt-10 mx-3  ">
         <div className="w-full max-w-md p-8 space-y-6 bg-black/40 rounded-md shadow-md  ">
           <h1 className="text-center text-white text-2xl font-bold mb-4  ">

@@ -1,3 +1,3 @@
 export default function HomePage() {
-  return <div>HomePage</div>;
+  return <div className="hero-bg h-screen">HomePage</div>;
 }

@@ -13,6 +13,10 @@ soon
 - MongoDb
 - ReactJS (18.x)
 
+## Other packages used
+
+- Lucide React (for icons)
+
 ## API Use
 
 ## Date Started

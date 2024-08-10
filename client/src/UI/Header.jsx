@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function Header() {
   return (
     <header className="max-w-6xl mx-auto flex item-center justify-between p-4 pb-10 ">
-      <Link to={"/"}>
+      <Link to={"/home"}>
         <img src="/netflix-logo.png" alt="Netflix Logo" className="w-52" />
       </Link>
       <Link

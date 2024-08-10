@@ -1,4 +1,4 @@
-import AuthScreen from "./AuthScreen";
+import AuthScreen from "../AuthScreen/AuthScreen";
 import HomeScreen from "./HomeScreen";
 
 export default function HomePage() {

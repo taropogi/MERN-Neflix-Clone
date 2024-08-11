@@ -47,7 +47,7 @@ Kids profiles come with PIN-protected parental controls that let you restrict th
   {
     question: "May tanong ka pa?",
     answer: `
-   Ang dami mo naman tanong.
+   Ang dami mo naman tanong. 😆🤣😂
     `,
   },
 ];

@@ -23,7 +23,7 @@ export default function Question({ question: q, showAnswer, onShowAnswer }) {
         {isShowAnswer ? <X /> : <Plus />}
       </div>
       <div
-        className={`transition-opacity duration-500 ease-in-out ${
+        className={`transition-opacity duration-1000 ease-in-out ${
           isShowAnswer ? "opacity-100" : "opacity-0"
         }`}
       >

@@ -59,7 +59,7 @@ export default function Questions() {
   }
 
   return (
-    <ul>
+    <ul className="space-y-2">
       {QUESTIONS_LIST.map((question) => (
         <Question
           question={question}

@@ -1,12 +1,35 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import Header from "../UI/Header";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../features/auth/thunk";
 
 export default function LoginPage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  function handleLogin(e) {
+  const { status } = useSelector((state) => state.auth);
+
+  const isLoggingIn = status === "loading";
+
+  async function handleLogin(e) {
     e.preventDefault();
+    try {
+      const response = await dispatch(
+        login({
+          email,
+          password,
+        })
+      );
+
+      if (response.payload) {
+        navigate("/");
+      } else {
+        throw new Error("Invalid");
+      }
+    } catch (error) {
+      console.log("error login");
+    }
   }
   return (
     <div className="flex justify-center items-center mt-10 mx-3 pb-24">
@@ -23,6 +46,7 @@ export default function LoginPage() {
               Email
             </label>
             <input
+              disabled={isLoggingIn}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
@@ -40,6 +64,7 @@ export default function LoginPage() {
               Password
             </label>
             <input
+              disabled={isLoggingIn}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
@@ -47,7 +72,10 @@ export default function LoginPage() {
               id="password"
             />
           </div>
-          <button className="w-full py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 focus:outline-none">
+          <button
+            className="w-full py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 focus:outline-none"
+            disabled={isLoggingIn}
+          >
             Sign In
           </button>
           <div className="text-center text-gray-400 space-x-2">

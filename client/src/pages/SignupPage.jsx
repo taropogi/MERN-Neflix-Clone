@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import Header from "../UI/Header";
+import { Link, useSearchParams } from "react-router-dom";
 
 export default function SignupPage() {
-  const [email, setEmail] = useState("");
+  const [searchParams] = useSearchParams();
+  const enteredEmail = searchParams.get("email");
+
+  const [email, setEmail] = useState(enteredEmail || "");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   function handleSignUp(e) {
     e.preventDefault();
   }

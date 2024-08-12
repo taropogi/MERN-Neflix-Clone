@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { loginFailure, loginRequest, loginSuccess } from "./authSlice";
+import axios from "axios";
 
 export const login = createAsyncThunk(
   "auth/login",
@@ -7,9 +8,11 @@ export const login = createAsyncThunk(
     dispatch(loginRequest());
 
     try {
-      const response = await fakeAPILogin(credentials);
+      //   const response = await fakeAPILogin(credentials);
+      const response = await axios.post("/api/v1/auth/login", credentials);
       dispatch(loginSuccess(response.data));
-      return response;
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      return response.data;
     } catch (error) {
       dispatch(loginFailure(error.message));
     }

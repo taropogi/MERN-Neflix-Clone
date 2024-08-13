@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { signup } from "./thunk";
+import toast from "react-hot-toast";
 
 export default function FormSignup() {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ export default function FormSignup() {
           password,
         })
       );
+
       console.log(response);
       if (response.payload) {
         navigate("/");
@@ -30,7 +32,7 @@ export default function FormSignup() {
         throw new Error("Invalid data");
       }
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   }
   return (

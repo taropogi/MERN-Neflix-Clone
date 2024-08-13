@@ -3,16 +3,20 @@ import HomePage from "./pages/home/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import AppLayout from "./UI/AppLayout";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
   return (
-    <Routes>
-      <Route element={<AppLayout />}>
-        <Route index element={<Navigate replace to="home" />} />
-        <Route path="home" element={<HomePage />} />
-        <Route path="login" element={<LoginPage />} />
-        <Route path="signup" element={<SignupPage />} />
-      </Route>
-    </Routes>
+    <>
+      <Routes>
+        <Route element={<AppLayout />}>
+          <Route index element={<Navigate replace to="home" />} />
+          <Route path="home" element={<HomePage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="signup" element={<SignupPage />} />
+        </Route>
+      </Routes>
+      <Toaster />
+    </>
   );
 }

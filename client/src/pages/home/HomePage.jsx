@@ -1,7 +1,8 @@
+import { useSelector } from "react-redux";
 import AuthScreen from "../AuthScreen/AuthScreen";
 import HomeScreen from "./HomeScreen";
 
 export default function HomePage() {
-  const user = false;
+  const { user } = useSelector((state) => state.auth);
   return <>{user ? <HomeScreen /> : <AuthScreen />}</>;
 }

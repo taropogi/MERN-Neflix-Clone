@@ -1,6 +1,31 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { loginFailure, loginRequest, loginSuccess } from "./authSlice";
 import axios from "axios";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  loginFailure,
+  loginRequest,
+  loginSuccess,
+  signupRequest,
+  signupFailure,
+  signupSuccess,
+} from "./authSlice";
+
+export const signup = createAsyncThunk(
+  "auth/signup",
+  async (data, { dispatch }) => {
+    dispatch(signupRequest());
+    try {
+      const response = await axios.post("/api/v1/auth/signup", data);
+
+      dispatch(signupSuccess(response.data.user));
+
+      setLocalStorageUser(response.data.user);
+
+      return response.data;
+    } catch (error) {
+      dispatch(signupFailure(error.message));
+    }
+  }
+);
 
 export const login = createAsyncThunk(
   "auth/login",
@@ -11,13 +36,18 @@ export const login = createAsyncThunk(
       //   const response = await fakeAPILogin(credentials);
       const response = await axios.post("/api/v1/auth/login", credentials);
       dispatch(loginSuccess(response.data));
-      localStorage.setItem("user", JSON.stringify(response.data.user));
+      setLocalStorageUser(response.data.user);
+
       return response.data;
     } catch (error) {
       dispatch(loginFailure(error.message));
     }
   }
 );
+
+function setLocalStorageUser(user) {
+  localStorage.setItem("user", JSON.stringify(user));
+}
 
 //Simulate an API login function
 const fakeAPILogin = (credentials) => {

@@ -16,23 +16,20 @@ export default function FormSignup() {
 
   async function handleSignUp(e) {
     e.preventDefault();
-    try {
-      const response = await dispatch(
-        signup({
-          email,
-          username,
-          password,
-        })
-      );
 
-      console.log(response);
-      if (response.payload) {
-        navigate("/");
-      } else {
-        throw new Error("Invalid data");
-      }
-    } catch (error) {
-      toast.error(error.message);
+    const response = await dispatch(
+      signup({
+        email,
+        username,
+        password,
+      })
+    );
+
+    if (response.payload) {
+      navigate("/");
+    } else {
+      // console.log(response);
+      throw new Error("Invalid data");
     }
   }
   return (

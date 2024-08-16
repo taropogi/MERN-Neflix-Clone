@@ -7,13 +7,34 @@ import {
   signupRequest,
   signupFailure,
   signupSuccess,
+  logoutRequest,
+  logoutSuccess,
+  logoutFailed,
 } from "./authSlice";
+import toast from "react-hot-toast";
+
+export const logout = createAsyncThunk(
+  "auth/logout",
+  async (data, { dispatch }) => {
+    dispatch(logoutRequest());
+
+    try {
+      await axios.post("/api/v1/auth/logout");
+      dispatch(logoutSuccess());
+      localStorage.removeItem("user");
+      toast.success("Logged Out Successfully");
+    } catch (error) {
+      dispatch(logoutFailed(error.message));
+    }
+  }
+);
 
 export const signup = createAsyncThunk(
   "auth/signup",
   async (data, { dispatch }) => {
     dispatch(signupRequest());
     try {
+      alert("test");
       const response = await axios.post("/api/v1/auth/signup", data);
 
       dispatch(signupSuccess(response.data.user));
@@ -22,7 +43,9 @@ export const signup = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      dispatch(signupFailure(error.message));
+      const errorMessage = error.response.data.message || "Signup Failed";
+      toast.error(errorMessage);
+      dispatch(signupFailure(errorMessage));
     }
   }
 );

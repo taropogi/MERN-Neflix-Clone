@@ -20,6 +20,7 @@ const authSlice = createSlice({
     },
     loginFailure(state, action) {
       state.status = "failed";
+
       state.error = action.payload;
     },
     signupRequest(state) {
@@ -32,12 +33,20 @@ const authSlice = createSlice({
     },
     signupFailure(state, action) {
       state.status = "failed";
+
       state.error = action.payload;
     },
-    logout(state) {
+    logoutRequest(state) {
+      state.status = "loading";
+    },
+    logoutSuccess(state) {
+      state.status = "success";
       state.user = null;
-      state.status = "idle";
       state.error = null;
+    },
+    logoutFailed(state, action) {
+      state.status = "Failed";
+      state.error = action.payload;
     },
   },
 });
@@ -46,9 +55,11 @@ export const {
   loginRequest,
   loginSuccess,
   loginFailure,
-  logout,
   signupRequest,
   signupFailure,
   signupSuccess,
+  logoutRequest,
+  logoutSuccess,
+  logoutFailed,
 } = authSlice.actions;
 export default authSlice.reducer;

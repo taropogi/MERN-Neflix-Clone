@@ -16,6 +16,8 @@ soon
 ## Other packages used
 
 - Lucide React (for icons)
+- React Hot Toast (for popups)
+- Redux Toolkit (for global state management)
 
 ## API Use
 

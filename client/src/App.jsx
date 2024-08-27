@@ -13,14 +13,14 @@ export default function App() {
     <>
       <Routes>
         <Route element={<AppLayout />}>
-          <Route index element={<Navigate replace to="home" />} />
-          <Route path="home" element={<HomePage />} />
+          <Route index element={<Navigate replace to="/home" />} />
+          <Route path="/home" element={<HomePage />} />
           <Route
-            path="login"
+            path="/login"
             element={!user ? <LoginPage /> : <Navigate to={"/"} />}
           />
           <Route
-            path="signup"
+            path="/signup"
             element={!user ? <SignupPage /> : <Navigate to={"/"} />}
           />
         </Route>

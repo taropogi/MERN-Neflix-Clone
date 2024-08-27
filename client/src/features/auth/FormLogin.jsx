@@ -14,23 +14,21 @@ export default function FormLogin() {
 
   async function handleLogin(e) {
     e.preventDefault();
-    try {
-      const response = await dispatch(
-        login({
-          email,
-          password,
-        })
-      );
 
-      if (response.payload) {
-        navigate("/");
-      } else {
-        throw new Error("Invalid");
-      }
-    } catch (error) {
-      console.log("error login");
+    const response = await dispatch(
+      login({
+        email,
+        password,
+      })
+    );
+
+    if (response.payload) {
+      navigate("/");
+    } else {
+      throw new Error("Invalid");
     }
   }
+
   return (
     <form className="space-y-4" onSubmit={handleLogin}>
       <div>

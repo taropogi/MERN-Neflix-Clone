@@ -34,7 +34,6 @@ export const signup = createAsyncThunk(
   async (data, { dispatch }) => {
     dispatch(signupRequest());
     try {
-      alert("test");
       const response = await axios.post("/api/v1/auth/signup", data);
 
       dispatch(signupSuccess(response.data.user));
@@ -58,11 +57,14 @@ export const login = createAsyncThunk(
     try {
       //   const response = await fakeAPILogin(credentials);
       const response = await axios.post("/api/v1/auth/login", credentials);
-      dispatch(loginSuccess(response.data));
-      setLocalStorageUser(response.data.user);
 
+      dispatch(loginSuccess(response.data.user));
+      setLocalStorageUser(response.data.user);
+      toast.success("Loggedin successful.");
       return response.data;
     } catch (error) {
+      const errorMessage = error.response.data.message || "Login failed";
+      toast.error(errorMessage);
       dispatch(loginFailure(error.message));
     }
   }

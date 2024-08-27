@@ -22,13 +22,12 @@ export default function HomeScreen() {
           <p className="mt-2 text-lg">
             {trendingContent?.release_date?.split("-")[0] ||
               trendingContent?.first_air_date.split("-")[0]}{" "}
-            | 18+
+            | {trendingContent?.adult ? "18+" : "PG-13"}
           </p>
           <p className="mt-4 text-lg">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet
-            sapiente eaque harum aliquid nihil dolorem. Doloribus necessitatibus
-            cumque quisquam temporibus quia ex excepturi dolor! Nam tempore quas
-            debitis sunt accusamus.
+            {trendingContent?.overview.length > 200
+              ? trendingContent?.overview.slice(0, 200) + "..."
+              : trendingContent?.overview}
           </p>
 
           <div className="flex mt-8">

@@ -18,6 +18,7 @@ soon
 - Lucide React (for icons)
 - React Hot Toast (for popups)
 - Redux Toolkit (for global state management)
+- Tailwind-scrollbar-hide (for hiding scrollbars)
 
 ## API Use
 

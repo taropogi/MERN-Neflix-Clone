@@ -6,7 +6,7 @@ import LineSeparator from "./LineSeparator";
 
 export default function AppLayout() {
   return (
-    <div className="hero-bg h-screen overflow-y-scroll">
+    <div className="hero-bg h-screen overflow-y-visible">
       <Header />
       <main>
         <Outlet />

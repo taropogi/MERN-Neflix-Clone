@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { SMALL_IMAGE_BASE_URL } from "../../utils/constants";
@@ -10,6 +10,8 @@ export default function MovieSlider({ category }) {
   const { type: contentType } = useSelector((state) => state.content);
   const [content, setContent] = useState([]);
   const [showArrows, setShowArrows] = useState(false);
+
+  const sliderRef = useRef(null);
 
   const formattedCategory =
     category.replaceAll("_", " ")[0].toUpperCase() +
@@ -25,6 +27,23 @@ export default function MovieSlider({ category }) {
     getContent();
   }, [contentType, category]);
 
+  const scrollLeft = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({
+        left: -sliderRef.current.offsetWidth,
+        behavior: "smooth",
+      });
+    }
+  };
+  const scrollRight = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({
+        left: sliderRef.current.offsetWidth,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <div
       className="bg-black relative px-5 md:px-20"
@@ -34,7 +53,7 @@ export default function MovieSlider({ category }) {
       <h2 className="mb-4 text-2xl font-bold">
         {formattedCategory} {formattedContentType}
       </h2>
-      <div className="flex space-x-4 overflow-x-scroll">
+      <div className="flex space-x-4 overflow-x-scroll" ref={sliderRef}>
         {content?.map((item) => (
           <Link
             key={item.id}
@@ -54,8 +73,8 @@ export default function MovieSlider({ category }) {
       </div>
       {showArrows && (
         <>
-          <SliderButton direction={"left"} />
-          <SliderButton direction={"right"} />
+          <SliderButton direction={"left"} onClick={scrollLeft} />
+          <SliderButton direction={"right"} onClick={scrollRight} />
         </>
       )}
     </div>

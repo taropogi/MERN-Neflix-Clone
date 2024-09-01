@@ -27,7 +27,7 @@ export default function HomeScreen() {
         className="absolute top-0 left-0 w-full h-full object-cover -z-0"
       />
       <ScreenOverlay />
-      <div className="h-screen  relative text-white">
+      <div className="h-screen  relative text-white bg-black">
         <div className="max-w-2xl   mx-10 my-10">
           <h1 className="mt-4 text-6xl font-extrabold text-balance">
             {trendingContent?.title || trendingContent?.name}
@@ -61,7 +61,7 @@ export default function HomeScreen() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-10 bg-black py-10">
+        <div className="flex flex-col bg-black py-10  gap-10">
           {contentType === "movie" &&
             MOVIE_CATEGORIES.map((category) => (
               <MovieSlider key={category} category={category} />

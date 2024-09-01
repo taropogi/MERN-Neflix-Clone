@@ -22,7 +22,7 @@ export default function HomeScreen() {
     );
   }
   return (
-    <>
+    <div>
       <img
         src={ORIGINAL_IMAGE_BASE_URL + trendingContent?.backdrop_path}
         alt="Hero image"
@@ -30,7 +30,7 @@ export default function HomeScreen() {
         onLoad={() => setImgLoading(false)}
       />
       <ScreenOverlay />
-      <div className="h-screen  relative text-white">
+      <div className="min-h-screen relative text-white">
         <div className="max-w-2xl   mx-10 my-10">
           <h1 className="mt-4 text-6xl font-extrabold text-balance">
             {trendingContent?.title || trendingContent?.name}
@@ -76,6 +76,6 @@ export default function HomeScreen() {
             ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }

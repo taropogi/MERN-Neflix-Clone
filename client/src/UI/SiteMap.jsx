@@ -2,7 +2,7 @@ import SiteMapLink from "./SiteMapLink";
 
 export default function SiteMap() {
   return (
-    <div className="py-20 bg-black text-white flex     sm:px-24  md:px-52 px-10  items-start md:items-center justify-between">
+    <div className="py-20 bg-black text-white flex sm:px-24  md:px-52 px-10  items-start md:items-center justify-between">
       <div className="flex-1">
         <ul className="space-y-2">
           <SiteMapLink>Question? Contact us</SiteMapLink>

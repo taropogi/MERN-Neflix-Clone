@@ -2,10 +2,23 @@ import { Link } from "react-router-dom";
 import ScreenOverlay from "../../UI/ScreenOverlay";
 import { Info, Play } from "lucide-react";
 import useGetTrendingContent from "../../hooks/useGetTrendingContent";
-import { ORIGINAL_IMAGE_BASE_URL } from "../../utils/constants";
+import {
+  MOVIE_CATEGORIES,
+  ORIGINAL_IMAGE_BASE_URL,
+  TV_CATEGORIES,
+} from "../../utils/constants";
+import { useSelector } from "react-redux";
+import MovieSlider from "../../components/MovieSlider";
 export default function HomeScreen() {
   const { trendingContent } = useGetTrendingContent();
-  // console.log(trendingContent);
+  const { type: contentType } = useSelector((state) => state.content);
+  if (!trendingContent) {
+    return (
+      <div className="h-screen text-white relative">
+        <div className="absolute top-0 left-0 w-full h-full bg-black/70 flex items-center justify-center z-10 shimmer"></div>
+      </div>
+    );
+  }
   return (
     <>
       <img
@@ -21,7 +34,7 @@ export default function HomeScreen() {
           </h1>
           <p className="mt-2 text-lg">
             {trendingContent?.release_date?.split("-")[0] ||
-              trendingContent?.first_air_date.split("-")[0]}{" "}
+              trendingContent?.first_air_date.split("-")[0]}
             | {trendingContent?.adult ? "18+" : "PG-13"}
           </p>
           <p className="mt-4 text-lg">
@@ -32,7 +45,7 @@ export default function HomeScreen() {
 
           <div className="flex mt-8">
             <Link
-              to="/watch/123"
+              to={`/watch/${trendingContent?.id}`}
               className="bg-white hover:bg-white/80 text-black font-bold py-2 px-4 rounded mr-4 flex items-center"
             >
               <Play className="size-6 inline-block mr-2 fill-black" />
@@ -46,6 +59,18 @@ export default function HomeScreen() {
               More Info
             </Link>
           </div>
+        </div>
+
+        <div className="flex flex-col gap-10 bg-black py-10">
+          {contentType === "movie" &&
+            MOVIE_CATEGORIES.map((category) => (
+              <MovieSlider key={category} category={category} />
+            ))}
+
+          {contentType === "tv" &&
+            TV_CATEGORIES.map((category) => (
+              <MovieSlider key={category} category={category} />
+            ))}
         </div>
       </div>
     </>

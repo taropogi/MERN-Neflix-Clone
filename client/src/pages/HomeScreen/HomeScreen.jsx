@@ -8,7 +8,7 @@ import {
   TV_CATEGORIES,
 } from "../../utils/constants";
 import { useSelector } from "react-redux";
-import MovieSlider from "../../components/MovieSlider";
+import MovieSlider from "../../components/MovieSlider/MovieSlider";
 export default function HomeScreen() {
   const { trendingContent } = useGetTrendingContent();
   const { type: contentType } = useSelector((state) => state.content);

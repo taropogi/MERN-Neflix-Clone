@@ -75,7 +75,7 @@ export async function getTvsByCategory(req, res) {
     );
     res.json({
       success: true,
-      movies: data.results,
+      content: data.results,
     });
   } catch (error) {
     resGeneralError(error, res);

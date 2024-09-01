@@ -75,7 +75,7 @@ export async function getMoviesByCategory(req, res) {
     );
     res.json({
       success: true,
-      movies: data.results,
+      content: data.results,
     });
   } catch (error) {
     resGeneralError(error, res);

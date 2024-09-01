@@ -9,7 +9,7 @@ export default function MobileNavbar() {
       <Link to={"/home"} className="block hover:underline p-2">
         TV Shows
       </Link>
-      <Link to={"/search"} className="block hover:underline p-2">
+      <Link to={"/history"} className="block hover:underline p-2">
         Search History
       </Link>
     </div>

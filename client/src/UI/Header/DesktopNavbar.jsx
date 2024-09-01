@@ -20,7 +20,7 @@ export default function DesktopNavbar() {
       >
         TV Shows
       </Link>
-      <Link to={"/home"} className="hover:underline">
+      <Link to={"/history"} className="hover:underline">
         Search History
       </Link>
     </div>

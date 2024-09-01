@@ -9,9 +9,11 @@ import {
 } from "../../utils/constants";
 import { useSelector } from "react-redux";
 import MovieSlider from "../../components/MovieSlider/MovieSlider";
+import { useState } from "react";
 export default function HomeScreen() {
   const { trendingContent } = useGetTrendingContent();
   const { type: contentType } = useSelector((state) => state.content);
+  const [imgLoading, setImgLoading] = useState(true);
   if (!trendingContent) {
     return (
       <div className="h-screen text-white relative">
@@ -25,6 +27,7 @@ export default function HomeScreen() {
         src={ORIGINAL_IMAGE_BASE_URL + trendingContent?.backdrop_path}
         alt="Hero image"
         className="absolute top-0 left-0 w-full h-full object-cover -z-0"
+        onLoad={() => setImgLoading(false)}
       />
       <ScreenOverlay />
       <div className="h-screen  relative text-white">

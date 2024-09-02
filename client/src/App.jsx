@@ -5,6 +5,7 @@ import SignupPage from "./pages/SignupPage";
 import AppLayout from "./UI/AppLayout";
 import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
+import WatchPage from "./pages/WatchPage/WatchPage";
 
 export default function App() {
   const { user } = useSelector((state) => state.auth);
@@ -22,6 +23,11 @@ export default function App() {
           <Route
             path="/signup"
             element={!user ? <SignupPage /> : <Navigate to={"/"} />}
+          />
+
+          <Route
+            path="/watch/:id"
+            element={user ? <WatchPage /> : <Navigate to={"/login"} />}
           />
         </Route>
       </Routes>

@@ -54,7 +54,7 @@ export default function MovieSlider({ category }) {
         {formattedCategory} {formattedContentType}
       </h2>
       <div
-        className="flex space-x-4 overflow-x-scroll  scrollbar-hide"
+        className="flex  space-x-4  overflow-x-scroll   scrollbar-hide"
         ref={sliderRef}
       >
         {content?.map((item) => (
@@ -67,7 +67,7 @@ export default function MovieSlider({ category }) {
               <img
                 src={SMALL_IMAGE_BASE_URL + item.backdrop_path}
                 alt="Movie image"
-                className="transition-transform duration-300 ease-in-out group-hover:scale-125"
+                className="transition-transform duration-300 ease-in-out group-hover:scale-125   "
               />
             </div>
             <p className="mt-2 text-center">{item.title || item.name}</p>

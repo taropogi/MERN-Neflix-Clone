@@ -19,6 +19,7 @@ soon
 - React Hot Toast (for popups)
 - Redux Toolkit (for global state management)
 - Tailwind-scrollbar-hide (for hiding scrollbars)
+- ReactPlayer (for embedding media players)
 
 ## API Use
 

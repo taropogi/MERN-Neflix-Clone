@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { SMALL_IMAGE_BASE_URL } from "../../utils/constants";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import SliderButton from "./SliderButton";
+import LinkImage from "./LinkImage";
 
 export default function MovieSlider({ category }) {
   const { type: contentType } = useSelector((state) => state.content);
@@ -58,32 +59,13 @@ export default function MovieSlider({ category }) {
         ref={sliderRef}
       >
         {content?.map((item) => (
-          <Link
-            key={item.id}
-            to={`/watch/${item.id}`}
-            className="min-w-[250px] relative group "
-          >
-            <div className="rounded-lg overflow-hidden">
-              <img
-                src={SMALL_IMAGE_BASE_URL + item.backdrop_path}
-                alt="Movie image"
-                className="transition-transform duration-300 ease-in-out group-hover:scale-125   "
-              />
-            </div>
-            <p className="mt-2 text-center">{item.title || item.name}</p>
-          </Link>
+          <LinkImage item={item} key={item.id} />
         ))}
       </div>
       {showArrows && (
         <>
           <SliderButton direction={"left"} onClick={scrollLeft} />
           <SliderButton direction={"right"} onClick={scrollRight} />
-
-          {/* <button
-            className={`absolute top-1/2 -translate-y-1/2 left-5 md:left-24 flex items-center justify-center size-12 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 text-white z-10`}
-          >
-            <ChevronLeft size="24" />
-          </button> */}
         </>
       )}
     </div>

@@ -6,6 +6,7 @@ import { SMALL_IMAGE_BASE_URL } from "../../utils/constants";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import SliderButton from "./SliderButton";
 import LinkImage from "./LinkImage";
+import SliderControls from "../../UI/SliderControls";
 
 export default function MovieSlider({ category }) {
   const { type: contentType } = useSelector((state) => state.content);
@@ -62,12 +63,7 @@ export default function MovieSlider({ category }) {
           <LinkImage item={item} key={item.id} />
         ))}
       </div>
-      {showArrows && (
-        <>
-          <SliderButton direction={"left"} onClick={scrollLeft} />
-          <SliderButton direction={"right"} onClick={scrollRight} />
-        </>
-      )}
+      {showArrows && <SliderControls sliderRef={sliderRef} />}
     </div>
   );
 }

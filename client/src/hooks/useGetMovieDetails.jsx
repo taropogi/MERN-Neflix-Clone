@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 export default function useGetMovieDetails() {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
-  const [content, setContent] = useState({});
+  const [content, setContent] = useState(null);
   const { type: contentType } = useSelector((state) => state.content);
   useEffect(() => {
     const getMovieDetails = async () => {

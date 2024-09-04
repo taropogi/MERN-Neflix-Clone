@@ -6,12 +6,15 @@ import AppLayout from "./UI/AppLayout";
 import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import WatchPage from "./pages/WatchPage/WatchPage";
+import ScrollToTop from "./components/ScrollToTop";
+import SearchPage from "./pages/SearchPage/SearchPage";
 
 export default function App() {
   const { user } = useSelector((state) => state.auth);
 
   return (
     <>
+      <ScrollToTop />
       <Routes>
         <Route element={<AppLayout />}>
           <Route index element={<Navigate replace to="/home" />} />
@@ -28,6 +31,10 @@ export default function App() {
           <Route
             path="/watch/:id"
             element={user ? <WatchPage /> : <Navigate to={"/login"} />}
+          />
+          <Route
+            path="/search"
+            element={user ? <SearchPage /> : <Navigate to={"/login"} />}
           />
         </Route>
       </Routes>

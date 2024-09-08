@@ -1,10 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { SMALL_IMAGE_BASE_URL } from "../../utils/constants";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import SliderButton from "./SliderButton";
 import LinkImage from "./LinkImage";
 import SliderControls from "../../UI/SliderControls";
 
@@ -28,23 +24,6 @@ export default function MovieSlider({ category }) {
     };
     getContent();
   }, [contentType, category]);
-
-  const scrollLeft = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({
-        left: -sliderRef.current.offsetWidth,
-        behavior: "smooth",
-      });
-    }
-  };
-  const scrollRight = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({
-        left: sliderRef.current.offsetWidth,
-        behavior: "smooth",
-      });
-    }
-  };
 
   return (
     <div

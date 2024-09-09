@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import WatchPage from "./pages/WatchPage/WatchPage";
 import ScrollToTop from "./components/ScrollToTop";
 import SearchPage from "./pages/SearchPage/SearchPage";
+import SearchHistory from "./pages/SearchHistory/SearchHistory";
 
 export default function App() {
   const { user } = useSelector((state) => state.auth);
@@ -35,6 +36,11 @@ export default function App() {
           <Route
             path="/search"
             element={user ? <SearchPage /> : <Navigate to={"/login"} />}
+          />
+
+          <Route
+            path="/history"
+            element={user ? <SearchHistory /> : <Navigate to={"/login"} />}
           />
         </Route>
       </Routes>

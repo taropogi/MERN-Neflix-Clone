@@ -9,6 +9,7 @@ import WatchPage from "./pages/WatchPage/WatchPage";
 import ScrollToTop from "./components/ScrollToTop";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import SearchHistory from "./pages/SearchHistory/SearchHistory";
+import Custom404 from "./pages/Custom404";
 
 export default function App() {
   const { user } = useSelector((state) => state.auth);
@@ -42,6 +43,7 @@ export default function App() {
             path="/history"
             element={user ? <SearchHistory /> : <Navigate to={"/login"} />}
           />
+          <Route path="/*" element={<Custom404 />} />
         </Route>
       </Routes>
       <Toaster />

@@ -74,7 +74,7 @@ export default function WatchPage() {
             />
           ) : (
             <h2 className="text-xl text-center mt-5">
-              No trailers available for
+              No trailers available for{" "}
               <span className="font-bold text-red-600">
                 {content?.title || content?.name}
               </span>

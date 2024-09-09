@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import PersonLinkImage from "./PersonLinkImage";
 import { Link } from "react-router-dom";
 import { SMALL_IMAGE_BASE_URL } from "../../utils/constants";
+import { setContentType } from "../../features/content/contentSlice";
 
 export default function SearchPage() {
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ export default function SearchPage() {
                     key={result.id}
                     to={`/watch/${result.id}`}
                     className="w-52 flex-none"
+                    onClick={() => dispatch(setContentType(activeTab))}
                   >
                     <img
                       src={SMALL_IMAGE_BASE_URL + result.poster_path}

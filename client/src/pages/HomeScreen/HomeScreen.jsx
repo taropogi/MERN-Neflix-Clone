@@ -10,9 +10,12 @@ import {
 import { useSelector } from "react-redux";
 import MovieSlider from "../../components/MovieSlider/MovieSlider";
 import { useState } from "react";
+import { getTrendingContent } from "../../services/apiMovies";
+import { useQuery } from "@tanstack/react-query";
 export default function HomeScreen() {
   const { trendingContent } = useGetTrendingContent();
   const { type: contentType } = useSelector((state) => state.content);
+
   const [imgLoading, setImgLoading] = useState(true);
   if (!trendingContent) {
     return (
@@ -21,6 +24,7 @@ export default function HomeScreen() {
       </div>
     );
   }
+
   return (
     <div>
       <img

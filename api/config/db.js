@@ -3,7 +3,7 @@ import { ENV_VARS } from "./envVars.js";
 
 export const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(ENV_VARS.MONGODB_URI);
+    await mongoose.connect(ENV_VARS.MONGODB_URI);
     console.log("MongoDB connected");
   } catch (error) {
     console.log("Error connecting to mongodb " || error.message);

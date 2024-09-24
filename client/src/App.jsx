@@ -10,12 +10,23 @@ import ScrollToTop from "./components/ScrollToTop";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import SearchHistory from "./pages/SearchHistory/SearchHistory";
 import Custom404 from "./pages/Custom404";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000,
+    },
+  },
+});
 
 export default function App() {
   const { user } = useSelector((state) => state.auth);
 
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <ScrollToTop />
       <Routes>
         <Route element={<AppLayout />}>
@@ -47,6 +58,6 @@ export default function App() {
         </Route>
       </Routes>
       <Toaster />
-    </>
+    </QueryClientProvider>
   );
 }

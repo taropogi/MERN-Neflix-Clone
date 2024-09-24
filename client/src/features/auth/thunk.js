@@ -20,11 +20,13 @@ export const logout = createAsyncThunk(
 
     try {
       await axios.post("/api/v1/auth/logout");
-      dispatch(logoutSuccess());
-      localStorage.removeItem("user");
+
       toast.success("Logged Out Successfully");
     } catch (error) {
       dispatch(logoutFailed(error.message));
+    } finally {
+      dispatch(logoutSuccess());
+      localStorage.removeItem("user");
     }
   }
 );
@@ -55,6 +57,7 @@ export const login = createAsyncThunk(
     dispatch(loginRequest());
 
     try {
+      console.log(credentials);
       //   const response = await fakeAPILogin(credentials);
       const response = await axios.post("/api/v1/auth/login", credentials);
 
